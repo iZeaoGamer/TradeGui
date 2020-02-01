@@ -2,15 +2,14 @@
 
 namespace FurkanGM\Trade\command;
 
-use FurkanGM\Trade\form\TradeRequestForm;
 use FurkanGM\Trade\Main;
 use pocketmine\command\Command;
 use pocketmine\command\CommandSender;
-use pocketmine\network\mcpe\protocol\AvailableCommandsPacket;
-use pocketmine\network\mcpe\protocol\types\CommandParameter;
+use pocketmine\command\PluginIdentifiableCommand;
 use pocketmine\Player;
+use pocketmine\plugin\Plugin;
 
-class Trade extends Command
+class Trade extends Command implements PluginIdentifiableCommand
 {
 
     /**
@@ -42,11 +41,11 @@ class Trade extends Command
 				{
 					if ($args[0] == "accept" || $args[0] == "kabul")
 					{
-						Main::getInstance()->getManager()->acceptTrade($sender);
+						$this->getPlugin()->getManager()->acceptTrade($sender);
 						return false;
 					}
 					elseif ($args[0] == "reject" || $args[0] == "reddet"){
-						Main::getInstance()->getManager()->rejectTrade($sender);
+						$this->getPlugin()->getManager()->rejectTrade($sender);
 						return false;
 					}
 				}
@@ -55,7 +54,7 @@ class Trade extends Command
                     	$sender->sendMessage($this->plugin->translateText("command.yourself"));
                     	return false;
                     }else {
-                    	Main::getInstance()->getManager()->sendTrade($sender, $player);
+                    	$this->getPlugin()->getManager()->sendTrade($sender, $player);
 					}
                 }else{
                     $sender->sendMessage($this->plugin->translateText("command.playernotfound"));
@@ -66,5 +65,13 @@ class Trade extends Command
         }
         return true;
     }
+
+	/**
+	 * @return \pocketmine\plugin\Plugin
+	 */
+	public function getPlugin(): Plugin
+	{
+		return $this->plugin;
+	}
 
 }
