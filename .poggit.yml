@@ -1,0 +1,12 @@
+--- # Poggit-CI Manifest. Open the CI at https://poggit.pmmp.io/ci/FurkanGM/TradeGui
+branches:
+- master
+projects:
+  TradeGui:
+    path: ""
+    libs:
+      - src: Muqsit/InvMenu/InvMenu
+        version: ^3.1.0
+      - src: dktapps-pm-pl/pmforms/pmforms
+        version: ^1.0.0
+...
