@@ -22,7 +22,7 @@ class Trade extends Command implements PluginIdentifiableCommand
      */
     public function __construct()
     {
-        parent::__construct("trade", "Takas komutu", "/trade <player>", ["takas"]);
+        parent::__construct("trade", "Trade command", "/trade <player>");
         $this->plugin = Main::getInstance();
     }
 
@@ -39,28 +39,28 @@ class Trade extends Command implements PluginIdentifiableCommand
 			if (isset($args[0])){
 				if ($cfg == "command")
 				{
-					if ($args[0] == "accept" || $args[0] == "kabul")
+					if ($args[0] == "accept")
 					{
 						$this->getPlugin()->getManager()->acceptTrade($sender);
 						return false;
 					}
-					elseif ($args[0] == "reject" || $args[0] == "reddet"){
+					elseif ($args[0] == "reject"){
 						$this->getPlugin()->getManager()->rejectTrade($sender);
 						return false;
 					}
 				}
                 if (($player = $this->plugin->getServer()->getPlayer($args[0])) instanceof Player){
                     if ($player->getName() == $sender->getName()){
-                    	$sender->sendMessage($this->plugin->translateText("command.yourself"));
+                    	$sender->sendMessage(TextFormat::colorize("&cYou cannot use this command on yourself."));
                     	return false;
                     }else {
                     	$this->getPlugin()->getManager()->sendTrade($sender, $player);
 					}
                 }else{
-                    $sender->sendMessage($this->plugin->translateText("command.playernotfound"));
+                    $sender->sendMessage(TextFormat::colorize("&cThe player name you entered cannot be found."));
                 }
             }else{
-				$sender->sendMessage($this->plugin->translateText("command.usage"));
+				$sender->sendMessage(TextFormat::colorize("&aPlease use: &b/trade <player>"));
             }
         }
         return true;
