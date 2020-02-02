@@ -9,6 +9,7 @@ use muqsit\invmenu\InvMenuHandler;
 use dktapps\pmforms\BaseForm;
 use pocketmine\lang\BaseLang;
 use pocketmine\plugin\PluginBase;
+use pocketmine\utils\TextFormat;
 
 class Main extends PluginBase
 {
@@ -85,7 +86,7 @@ class Main extends PluginBase
 	 */
 	public function translateText(string $text, $params = []): string
 	{
-		return $this->getLanguage()->translateString($text, $params);
+		return TextFormat::colorize($text);
 	}
 
 	/**
