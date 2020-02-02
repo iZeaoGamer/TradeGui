@@ -36,7 +36,7 @@ class Main extends PluginBase
 	public function onEnable()
 	{
 		$lang = $this->getConfig()->get("language", "tur");
-		$baseFolder = $this->getServer()->getPluginPath() . "trade/resources";
+		$baseFolder = $this->getServer()->getPluginPath() . "trade/";
 		if ($this->getConfig()->get("type") == "ui")
 		{
 			if (!class_exists(BaseForm::class))
@@ -55,11 +55,11 @@ class Main extends PluginBase
 		if(!InvMenuHandler::isRegistered()){
 			InvMenuHandler::register($this);
 		}
-		if (file_exists($baseFolder . "/lang/" . $lang . ".ini"))
+		if (file_exists($baseFolder . $lang . ".yml"))
 		{
-			$this->baseLang = new BaseLang($lang, $baseFolder . "/lang/");
+			$this->baseLang = new Config($lang, $baseFolder . $lang . ".yml");
 		}else{
-			$this->baseLang = new BaseLang($lang, $baseFolder . "/lang/");
+			$this->baseLang = new Config($lang, $baseFolder . $lang . ".yml");
 		}
 		$this->getServer()->getCommandMap()->register("trade",new Trade());
 	}
